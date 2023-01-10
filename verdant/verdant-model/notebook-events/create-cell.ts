@@ -35,6 +35,10 @@ export class CreateCell extends NotebookEvent {
       this.cell_index,
       this.checkpoint
     );
-    log("CELL CREATED", newCell, this.notebook.cells);
+    log("CELL CREATED", newCell, this.notebook.cells, this.cell_index);
+  }
+
+  endEvent(): void {
+    log("CELL CREATED_END", this.cell, this.notebook.cells, this.cell_index);
   }
 }

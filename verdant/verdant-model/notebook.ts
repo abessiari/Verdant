@@ -8,8 +8,7 @@ import { AST } from "./analysis/ast";
 import { VerCell } from "./cell";
 import { NodeyNotebook, NodeyCell } from "./nodey";
 import { NotebookEvent, LoadNotebook } from "./notebook-events";
-
-const DEBUG = false;
+import { logit } from "./sc/sc-client";
 
 /*
  * Notebook holds a list of cells
@@ -20,6 +19,7 @@ export class VerNotebook {
   readonly ast: AST;
   private eventQueue: Promise<any>[] = [];
   cells: VerCell[];
+  modelMapping = new Map();
 
   constructor(history: History, ast: AST, notebookPanel: NotebookPanel) {
     this.history = history;
@@ -52,6 +52,24 @@ export class VerNotebook {
 
     // finish initialization
     log("Loaded Notebook", this.view.notebook, this.model);
+    const tempMapping = new Map();
+
+    for (var i = 0; i < this.cells.length; ++i) {
+          var cell = this.cells[i]
+          var name = cell.model.name;
+
+          if (cell.view && cell.view.model) {
+             var info = JSON.stringify(cell.view.model.toJSON())
+             console.log("LOADED_MODELS:", name, info)
+             var key = name.substring(0, name.lastIndexOf("."));
+             var id = cell.view.model.id;
+             var state = { id:id, index:i, msg:info}
+
+             tempMapping.set(key, state)
+          }
+    }
+
+    this.modelMapping = tempMapping;
     this.dump();
     this._ready.resolve(undefined);
 
@@ -127,9 +145,9 @@ export class VerNotebook {
 export type jsn = { [i: string]: any };
 
 export function log(...msg: any[]) {
-  if (DEBUG) console.log("VERDANT: ", ...msg);
+   logit(...msg);
 }
 
 export function error(...msg: any[]) {
-  if (DEBUG) console.error("VERDANT: ", ...msg);
+  console.error("VERDANT ERROR: ", ...msg);
 }

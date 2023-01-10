@@ -226,6 +226,7 @@ export class Commit {
       let latestCheckpoint = oldCheckpoints[oldCheckpoints.length - 1];
       // check that the latest checkpoint is within 5 min of this one
       pass = checkTimeDiff(latestCheckpoint, this.checkpoint);
+      console.log("CHECK_TIME", pass)
 
       // check that the older checkpoint does not affect the same cells as this one
       if (pass) {
@@ -253,6 +254,7 @@ export class Commit {
       }
     }
 
+    console.log("CHECK_RETURN", pass)
     return pass;
   }
 

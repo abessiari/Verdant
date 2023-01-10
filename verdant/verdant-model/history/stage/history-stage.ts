@@ -16,6 +16,9 @@ export class HistoryStage {
     this.open_commits = [];
   }
 
+  // ABDOU
+  // verdant-model/notebook-events/run-cell.ts:17:50 
+  // verdant-model/notebook-events/save-notebook.ts
   public async commit(
     checkpoint: Checkpoint,
     options: jsn = {}
@@ -92,6 +95,6 @@ export class HistoryStage {
     let i = this.open_commits.indexOf(commit);
     if (i > -1) this.open_commits.splice(i, 1);
     let notebook = this.history.store.getNotebook(commit.checkpoint.notebook);
-    log("Commit complete:", commit.checkpoint, notebook);
+    log("Commit complete:", commit.checkpoint, notebook, this.history);
   }
 }

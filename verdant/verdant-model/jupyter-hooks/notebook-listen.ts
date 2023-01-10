@@ -83,6 +83,7 @@ export class NotebookListen {
   }
 
   focusCell(cell: Cell | null = this._notebook.activeCell) {
+    log("GOT_FOCUS", cell);
     if (!cell) return; //cell was just deleted
     if (!cell.model) return; //cell was just deleted
     if (cell instanceof CodeCell || cell instanceof MarkdownCell) {
@@ -95,13 +96,19 @@ export class NotebookListen {
      * fileChanged is "A signal emitted when the model is saved or reverted.""
      */
     this._notebookPanel?.context?.fileChanged.connect(() => {
+      log("FILE_CHANGED", this.verNotebook);
       let saveEvent = new SaveNotebook(this.verNotebook);
       this.verNotebook.handleNotebookEvent(saveEvent);
     });
     this._notebook.model?.cells?.changed.connect(
       (sender: any, data: IObservableList.IChangedArgs<ICellModel>) => {
         // to avoid duplicates during load wait til load is complete
-        if (!this.verNotebook.ready) return;
+        // log("DEBUG_LIST_CHANGED_EVENT", sender, data);
+
+        if (!this.verNotebook.ready) {
+          log("LOST_LIST_CHANGED_EVENT", "NOT_READY", sender, data);
+          return;
+        }
 
         var newIndex = data.newIndex;
         var newValues = data.newValues;
@@ -121,7 +128,8 @@ export class NotebookListen {
             this._cellTypeChanged(oldIndex, newIndex, oldValues);
             break;
           default:
-            log("cell list changed!!!!", sender, data);
+            log("LOST_LIST_CHANGED_EVENT", "TYPE_NOT)SUPPORTED", sender, data);
+            // log("cell list changed!!!!", sender, data);
             break;
         }
       }
@@ -177,6 +185,12 @@ export class NotebookListen {
   }
 
   private _addNewCells(newIndex: number, newValues: ICellModel[]) {
+/*
+    newValues.forEach((value, index) => {
+       log("adding cell",newIndex + index, value.toJSON());
+    });
+*/
+
     newValues.forEach(async (_, index) => {
       var cell: Cell = this._notebook.widgets[newIndex + index];
       let createCellEvent = new CreateCell(
@@ -191,6 +205,11 @@ export class NotebookListen {
 
   private _removeCells(oldIndex: number, oldValues: ICellModel[]) {
     log("removing cells", oldIndex, oldValues);
+
+    oldValues.forEach((value) => {
+       log("removing cell", oldIndex, value, this.verNotebook);
+    });
+
     oldValues.forEach(() => {
       let deleteCellEvent = new DeleteCell(this.verNotebook, oldIndex);
       this.verNotebook.handleNotebookEvent(deleteCellEvent);

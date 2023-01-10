@@ -22,7 +22,7 @@ function sendPostRequest(url, data) {
 
 function sendEvent(topic, message) {
       console.log("SYNC:******************** BEGIN  **********************");
-      var url = 'http://127.0.0.1:54001/sc/pubsub/simple/connect?name=aha';
+      var url = 'http://127.0.0.1:54001/sc/pubsub/simple/connect?name=spoon';
       var resp = sendGetRequest(url);
 
       resp.then(data =>{

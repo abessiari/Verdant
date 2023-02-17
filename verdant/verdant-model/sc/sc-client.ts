@@ -59,13 +59,13 @@ export function logit(...msg: any[]) {
 
     if (history && checkpoint) {
        console.log("+++++++++++++++++++++++++ DCOMMIT_BEGIN +++++++++++++++++++++");
-       var version = checkpoint.notebook + 1
-       console.log("COMMIT_CHECKPOINT:", version);
+       // var version = checkpoint.notebook + 1
+       // console.log("COMMIT_CHECKPOINT:", version);
        var notebook = history.notebook; 
        var path = notebook.path;
        var events = [];
 
-       console.log("DCOMMIT_VERNOTEBOOK:", Array.from(notebook.cells))
+       // console.log("DCOMMIT_VERNOTEBOOK:", Array.from(notebook.cells))
        const tempMapping = new Map();
 
        for (var i = 0; i < notebook.cells.length; ++i) {
@@ -73,8 +73,12 @@ export function logit(...msg: any[]) {
           var name = cell.model.name;
  
           if (cell.view && cell.view.model) {
+             console.log("VIEW_MODEL_TYPE:", typeof cell.view.model)
+             console.log("VIEW_MODEL:", cell.view.model)
+             console.log("VIEW_MODEL_EXECUTION_COUNT:", cell.view.model.executionCount)
              var info = JSON.stringify(cell.view.model.toJSON())
-             console.log("DCOMMIT_MODEL:", name, info)
+             console.log("VIEW_MODEL_AS_STRING:", name, info)
+             // console.log("DCOMMIT_MODEL:", name, info)
              var key = name.substring(0, name.lastIndexOf("."));
              var id = cell.view.model.id;
              var state = { id:id, index:i, msg:info}
@@ -84,23 +88,34 @@ export function logit(...msg: any[]) {
        }
 
        var modelMapping = notebook.modelMapping;
-       console.log("DCOMMIT_MAPPING_M:", modelMapping)
-       console.log("DCOMMIT_MAPPING_T:", tempMapping)
+       // console.log("DCOMMIT_MAPPING_M:", modelMapping)
+       // console.log("DCOMMIT_MAPPING_T:", tempMapping)
 
        for (let entry of tempMapping.entries()) {
           if (!modelMapping.has(entry[0])) {
              // const event = {time:new Date(),nb:path,name:entry[0],action:"added", ...entry[1]}
              const event = {time:new Date().toLocaleString(),nb:path,name:entry[0],action:"added", ...entry[1]}
              events.push(event);
-             console.log("DCOMMIT_EVENT", event);
+             console.log("DCOMMIT_EVENT_ADDED", event);
           } else {
             var state1 = modelMapping.get(entry[0]);
             var state2 = entry[1];
+            
 
             if (state1.msg != state2.msg) {
-                const event = {time:new Date(),nb:path,name:entry[0],action:"edited", ...entry[1]}
-                events.push(event);
-                console.log("DCOMMIT_EVENT", event);
+                var json_msg1 = JSON.parse(state1.msg)
+                var json_msg2 = JSON.parse(state2.msg)
+
+                if (json_msg1.execution_count != json_msg2.execution_count) {
+                    const event = {time:new Date(),nb:path,name:entry[0],action:"executed", ...entry[1]}
+                    events.push(event);
+                    console.log("DCOMMIT_EVENT_EXEXCUTED", event);
+                } else {
+                    const event = {time:new Date(),nb:path,name:entry[0],action:"edited", ...entry[1]}
+                    events.push(event);
+                    console.log("DCOMMIT_EVENT_EDIT", event);
+                }
+
             }
           }
        }
@@ -109,7 +124,7 @@ export function logit(...msg: any[]) {
           if (!tempMapping.has(entry[0])) {
              const event = {time:new Date(),nb:path,name:entry[0],action:"deleted", ...entry[1]}
              events.push(event);
-             console.log("DCOMMIT_EVENT", event);
+             console.log("DCOMMIT_EVENT_DELETED", event);
           }
        }
 

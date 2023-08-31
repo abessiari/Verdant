@@ -22,16 +22,16 @@ function sendPostRequest(url, data) {
 
 function sendEvent(topic, message) {
       console.log("SYNC:******************** BEGIN  **********************");
-      var url = 'http://127.0.0.1:54001/sc/pubsub/simple/connect?name=spoon';
+      var url = 'http://127.0.0.1:54002/sc/pubsub/simple/connect?name=sc-als-jupyter';
       var resp = sendGetRequest(url);
 
       resp.then(data =>{
             var client_id = data.properties.client_id
-            url=`http://127.0.0.1:54001/sc/pubsub/simple/send/${client_id}/${topic}`
+            url=`http://127.0.0.1:54002/sc/pubsub/simple/send/${client_id}/${topic}`
 
             resp = sendPostRequest(url, message);
             resp.then(data => {
-                 url = `http://127.0.0.1:54001/sc/pubsub/simple/disconnect?client_id=${client_id}`;
+                 url = `http://127.0.0.1:54002/sc/pubsub/simple/disconnect?client_id=${client_id}`;
                  resp = sendGetRequest(url);
                  resp.then(data =>{
                  });

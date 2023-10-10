@@ -16,7 +16,11 @@
     "outDir": "lib",
     "types": ["node"],
     "jsx": "react",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    // "skipLibCheck": true
   },
-  "include": ["verdant/**/*", "verdant/tests"]
+  "include": ["src/**/*", "src/tests"],
+  // "exclude": [
+  //   "node_modules"
+  // ],
 }

@@ -5,3 +5,9 @@ notebooks_test/
 *.egg-info/
 .ipynb_checkpoints
 .DS_Store
+analysis/
+.jupyter_ystore.db
+*.ipyhistory
+*.ipynb
+__pycache__
+verdant/_version.py

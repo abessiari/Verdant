@@ -25,8 +25,6 @@ class ScApiUrlRouteHandler(APIHandler):
     """
     @tornado.web.authenticated
     def get(self):
-        print('PLATFORM INFO $$$$$$$$$$$$$$')
-        print(sys.platform)
         if sys.platform == "win32":
             api_url = os.environ["REACT_APP_SC_API_URL_WINDOWS"]
         else:

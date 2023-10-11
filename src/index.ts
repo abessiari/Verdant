@@ -40,7 +40,7 @@ import "../style/artifact-details.css";
 
 import { RenderBaby } from "./verdant-model/jupyter-hooks/render-baby";
 import { VerdantUI } from "./verdant-ui";
-import { scService } from "./verdant-model/sc/ sc-service";
+import { scService } from "./verdant-model/sc/sc-service";
 
 /**
  * Initialization data for the Verdant extension.

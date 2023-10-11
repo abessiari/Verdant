@@ -1,4 +1,4 @@
-import { scService } from './ sc-service';
+import { scService } from './sc-service';
 
 function sendGetRequest(url) {
        return fetch(url).then(resp => {

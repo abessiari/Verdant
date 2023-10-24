@@ -42,13 +42,22 @@ jupyter lab
 
 ## Build and Publish
 
-First commit changes and upgrade the package version using npm.
+First rebuild the labextension and commit changes.
+
+```
+jlpm run build
+pip install -e .
+git commit add .
+git commit -m "My updates"
+```
+
+Then upgrade the package version using npm.
 
 ```
 npm version patch
 ```
 
-Then build the labextension and python distribution.
+Then build the python distribution.
 
 ```
 jlpm run build:dist

@@ -8,9 +8,6 @@
     "jupyterlab-extension"
   ],
   "homepage": "https://github.com/abessiari/Verdant",
-  "bugs": {
-    "url": "https://github.com/mkery/Verdant/issues"
-  },
   "license": "BSD-3-Clause",
   "author": {
     "name" : "Abdelilah Essiari",
@@ -34,7 +31,7 @@
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "hhttps://github.com/abessiari/Verdant.git"
+    "url": "https://github.com/abessiari/Verdant.git"
   },
   "scripts": {
     "build": "jlpm build:lib && jlpm build:labextension:dev",

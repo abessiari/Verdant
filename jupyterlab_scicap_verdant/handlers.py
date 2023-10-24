@@ -13,7 +13,7 @@ class ExampleRouteHandler(APIHandler):
     @tornado.web.authenticated
     def get(self):
         self.finish(json.dumps({
-            "data": "This is /verdant/get-example endpoint! Verdant test 1!"
+            "data": "This is /jupyterlab-scicap-verdant/example endpoint! Verdant test 1!"
         }))
 
 
@@ -26,9 +26,9 @@ class ScApiUrlRouteHandler(APIHandler):
     @tornado.web.authenticated
     def get(self):
         if sys.platform == "win32":
-            api_url = os.environ["REACT_APP_SC_API_URL_WINDOWS"]
+            api_url = os.environ["SC_API_URL_WINDOWS"]
         else:
-            api_url = os.environ["REACT_APP_SC_API_URL"]
+            api_url = os.environ["SC_API_URL"]
         self.finish(json.dumps({
             "data": api_url
         }))
@@ -39,6 +39,6 @@ def setup_handlers(web_app):
 
     base_url = web_app.settings["base_url"]
     web_app.add_handlers(host_pattern, [
-        (url_path_join(base_url, "verdant", "example"), ExampleRouteHandler),
-        (url_path_join(base_url, "verdant", "sc_api_url"), ScApiUrlRouteHandler)
+        (url_path_join(base_url, "jupyterlab-scicap-verdant", "example"), ExampleRouteHandler),
+        (url_path_join(base_url, "jupyterlab-scicap-verdant", "sc_api_url"), ScApiUrlRouteHandler)
     ])

@@ -1,5 +1,6 @@
 *.bundle.*
 lib/
+dist/
 node_modules/
 notebooks_test/
 *.egg-info/
@@ -10,4 +11,5 @@ analysis/
 *.ipyhistory
 *.ipynb
 __pycache__
-verdant/_version.py
+jupyterlab_scicap_verdant/_version.py
+jupyterlab_scicap_verdant/labextension/

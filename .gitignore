@@ -1,5 +1,6 @@
 *.bundle.*
 lib/
+dist/
 node_modules/
 notebooks_test/
 *.egg-info/

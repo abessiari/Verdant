@@ -13,13 +13,13 @@ from .handlers import setup_handlers
 def _jupyter_labextension_paths():
     return [{
         "src": "labextension",
-        "dest": "verdant"
+        "dest": "jupyterlab-scicap-verdant"
     }]
 
 
 def _jupyter_server_extension_points():
     return [{
-        "module": "verdant"
+        "module": "jupyterlab_scicap_verdant"
     }]
 
 
@@ -32,5 +32,5 @@ def _load_jupyter_server_extension(server_app):
         JupyterLab application instance
     """
     setup_handlers(server_app.web_app)
-    name = "verdant"
+    name = "jupyterlab_scicap_verdant"
     server_app.log.info(f"Registered {name} server extension")

@@ -1,18 +1,31 @@
 {
-  "name": "verdant",
+  "name": "jupyterlab-scicap-verdant",
   "version": "1.1.7",
-  "description": "a local versioning logging tool for jupyterlab notebooks",
+  "description": "An adaptation of the Verdant library for logging jupyter lab events in Science Capsule.",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/mkery/Verdant",
+  "homepage": "https://github.com/abessiari/Verdant",
   "bugs": {
     "url": "https://github.com/mkery/Verdant/issues"
   },
   "license": "BSD-3-Clause",
-  "author": "Mary Beth Kery",
+  "author": {
+    "name" : "Abdelilah Essiari",
+    "url" : "https://github.com/abessiari"
+  },
+  "contributors" : [
+    {
+      "name" : "Cody O'Donnell",
+      "url" : "https://github.com/codytodonnell"
+    },  
+    {
+      "name" : "Mary Beth Kery",
+      "url" : "https://github.com/mkery"
+    }
+  ],
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png, py,svg,woff2,ttf}",
     "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
@@ -21,7 +34,7 @@
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "hhttps://github.com/mkery/Verdant.git"
+    "url": "hhttps://github.com/abessiari/Verdant.git"
   },
   "scripts": {
     "build": "jlpm build:lib && jlpm build:labextension:dev",
@@ -33,7 +46,7 @@
     "clean": "jlpm clean:lib",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
     "clean:lintcache": "rimraf .eslintcache .stylelintcache",
-    "clean:labextension": "rimraf jlab_ext_example/labextension jlab_ext_example/_version.py",
+    "clean:labextension": "rimraf jupyterlab_scicap_verdant/labextension jupyterlab_scicap_verdant/_version.py",
     "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
     "install:extension": "jlpm build",
     "start": "jupyter labextension install . && jupyter lab .",
@@ -109,12 +122,12 @@
           "pip"
         ],
         "base": {
-          "name": "verdant"
+          "name": "jupyterlab_scicap_verdant"
         }
       }
     },
     "extension": true,
-    "outputDir": "verdant/labextension"
+    "outputDir": "jupyterlab_scicap_verdant/labextension"
   },
   "config": {
     "commitizen": {

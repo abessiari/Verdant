@@ -10,5 +10,5 @@ analysis/
 *.ipyhistory
 *.ipynb
 __pycache__
-verdant/_version.py
-verdant/labextension/
+jupyterlab_scicap_verdant/_version.py
+jupyterlab_scicap_verdant/labextension/

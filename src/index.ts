@@ -46,13 +46,22 @@ import { scService } from "./verdant-model/sc/sc-service";
  * Initialization data for the Verdant extension.
  */
 const extension: JupyterFrontEndPlugin<void> = {
-  id: "Verdant",
+  id: "jupyterlab-scicap-verdant",
   activate: (
     app: JupyterFrontEnd,
     docManager: IDocumentManager,
     rendermime: IRenderMimeRegistry,
     latexTypesetter: renderers.ILatexTypesetter
   ) => {
+    requestAPI<any>('example')
+      .then(res => {
+        console.log(res);
+      })
+      .catch(reason => {
+        console.error(
+          `The jupyterlab_scicap_verdant server extension appears to be missing.\n${reason}`
+        );
+      });
     /**
      * Get the Science Capsule API URL which is stored
      * in an environment variable and shared via the sc_api_url server route. 
@@ -65,7 +74,7 @@ const extension: JupyterFrontEndPlugin<void> = {
       })
       .catch(reason => {
         console.error(
-          `The verdant server extension appears to be missing.\n${reason}`
+          `The jupyterlab_scicap_verdant server extension appears to be missing.\n${reason}`
         );
       });
     /*

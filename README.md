@@ -1,3 +1,7 @@
+# Jupyterlab Scicap Verdant
+
+This project is an adaptation of the Verdant project for Science Capsule. Events from Verdant are intercepted and sent to an API so that jupyter events can be stored with other Science Capsule events.
+
 # Verdant
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 

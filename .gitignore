@@ -11,3 +11,4 @@ analysis/
 *.ipynb
 __pycache__
 verdant/_version.py
+verdant/labextension/

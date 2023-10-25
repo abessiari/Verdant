@@ -1,7 +1,7 @@
 {
   "ServerApp": {
     "jpserver_extensions": {
-      "verdant": true
+      "jupyterlab_scicap_verdant": true
     }
   }
 }
